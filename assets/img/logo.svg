@@ -1,0 +1,14 @@
+<svg width="194" height="46" viewBox="0 0 194 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- World Icon -->
+    <circle cx="23" cy="23" r="22" fill="#684DF4" /> <!-- Base circle -->
+    <path d="M1 23 H45" stroke="white" stroke-width="1.5" /> <!-- Horizontal line -->
+    <path d="M23 1 V45" stroke="white" stroke-width="1.5" /> <!-- Vertical line -->
+    <path d="M6 10 C12 5, 34 5, 40 10" stroke="white" stroke-width="1.5" fill="none" /> <!-- Top curve -->
+    <path d="M6 36 C12 41, 34 41, 40 36" stroke="white" stroke-width="1.5" fill="none" /> <!-- Bottom curve -->
+    <path d="M4 15 C2 23, 2 23, 4 31" stroke="white" stroke-width="1.5" fill="none" /> <!-- Left arc -->
+    <path d="M42 15 C44 23, 44 23, 42 31" stroke="white" stroke-width="1.5" fill="none" /> <!-- Right arc -->
+  
+    <!-- Text "WLC2024" -->
+    <text x="60" y="30" fill="#141D38" font-family="Arial, sans-serif" font-size="20" font-weight="bold">WLC2024</text>
+  </svg>
+  
