@@ -9331,26 +9331,6 @@ ul.comment-list .th-comment-item:first-child > .th-post-comment {
 /*------------------- 4.8. Hero Area  -------------------*/
 /* Hero Global ---------------------------------- */
 
-.hero-title-box {
-    background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
-    padding: 20px 30px;
-    border-radius: 12px;
-    display: inline-block;
-    margin: 10px auto;
-    max-width: 90%;
-    font-weight: bold;
-    font-size: 2rem;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 768px) {
-    .hero-title-box {
-        font-size: 1.4rem;
-        padding: 15px 20px;
-    }
-}
-
 .th-hero-wrapper {
   position: relative;
   z-index: 2;
