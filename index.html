@@ -45,6 +45,10 @@
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="assets/js/jquery-3.6.4.min.js"></script>
+    <!-- Include Toastify for toast notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </head>
 
 <body class="gray-body">
@@ -130,7 +134,8 @@
                     <div class="col-auto">
                         <div class="social-links">
                             <span class="social-title">Follow Us On:</span>
-                            <a href="https://web.facebook.com/people/Christ-The-Redeemers-School-Management-CRSM/61551523377798"><i
+                            <a
+                                href="https://web.facebook.com/people/Christ-The-Redeemers-School-Management-CRSM/61551523377798"><i
                                     class="fab fa-facebook-f"></i></a>
                             <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
                             <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
@@ -193,11 +198,11 @@ Home Area
                             <div class="hero-style6">
                                 <span class="sub-title" data-ani="slideinup" data-ani-delay="0.5s"></span>
                                 <h1 class="hero-title" data-ani="slideinup" data-ani-delay="0.6s">
-                                    
+
                                 </h1>
                                 <div class="hero-big">
                                     <h1 class="hero-big_text" data-ani="slideinup" data-ani-delay="0.7s">
-                                        
+
                                     </h1>
                                 </div>
                                 <div class="btn-group justify-content-center">
@@ -219,11 +224,11 @@ Home Area
                             <div class="hero-style6">
                                 <span class="sub-title" data-ani="slideinup" data-ani-delay="0.5s"></span>
                                 <h1 class="hero-title" data-ani="slideinup" data-ani-delay="0.6s">
-                                    
+
                                 </h1>
                                 <div class="hero-big">
                                     <h1 class="hero-big_text" data-ani="slideinup" data-ani-delay="0.7s">
-                                        
+
                                     </h1>
                                 </div>
                                 <div class="btn-group justify-content-center">
@@ -245,11 +250,11 @@ Home Area
                             <div class="hero-style6">
                                 <span class="sub-title" data-ani="slideinup" data-ani-delay="0.5s"></span>
                                 <h1 class="hero-title" data-ani="slideinup" data-ani-delay="0.6s">
-                                    
+
                                 </h1>
                                 <div class="hero-big">
                                     <h1 class="hero-big_text" data-ani="slideinup" data-ani-delay="0.7s">
-                                        
+
                                     </h1>
                                 </div>
                                 <div class="btn-group justify-content-center">
@@ -472,8 +477,7 @@ About Area
                                 </ul>
                             </div>
                             <div class="about-btn mt-50">
-                                <a href="#"
-                                    class="th-btn popup-video style-radius"><i
+                                <a href="#" class="th-btn popup-video style-radius"><i
                                         class="fa-solid fa-circle-play me-2"></i>Watch
                                     Past Highlights</a>
                             </div>
@@ -525,7 +529,7 @@ Expectations Area
                         <div class="swiper-slide">
                             <div class="service-grid7 th-ani">
                                 <div class="service-grid7_icon">
-                                    <i class="fas fa-ticket-alt fa-2x text-primary"></i>
+                                    <i class="fas fa-ticket-alt fa-2x text-success"></i>
                                 </div>
                                 <div class="service-grid7_content">
                                     <h3 class="box-title"><a href="#">It's Free!</a></h3>
@@ -541,7 +545,7 @@ Expectations Area
                         <div class="swiper-slide">
                             <div class="service-grid7 th-ani">
                                 <div class="service-grid7_icon">
-                                    <i class="fas fa-globe fa-2x text-primary"></i>
+                                    <i class="fas fa-globe fa-2x text-success"></i>
                                 </div>
                                 <div class="service-grid7_content">
                                     <h3 class="box-title"><a href="#">100% Virtual</a></h3>
@@ -556,7 +560,7 @@ Expectations Area
                         <div class="swiper-slide">
                             <div class="service-grid7 th-ani">
                                 <div class="service-grid7_icon">
-                                    <i class="fas fa-chalkboard-teacher fa-2x text-primary"></i>
+                                    <i class="fas fa-chalkboard-teacher fa-2x text-success"></i>
                                 </div>
                                 <div class="service-grid7_content">
                                     <h3 class="box-title"><a href="#">Top Experts</a></h3>
@@ -571,7 +575,7 @@ Expectations Area
                         <div class="swiper-slide">
                             <div class="service-grid7 th-ani">
                                 <div class="service-grid7_icon">
-                                    <i class="fas fa-lightbulb fa-2x text-primary"></i>
+                                    <i class="fas fa-lightbulb fa-2x text-success"></i>
                                 </div>
                                 <div class="service-grid7_content">
                                     <h3 class="box-title"><a href="#">Innovative Insights</a></h3>
@@ -587,7 +591,7 @@ Expectations Area
                         <div class="swiper-slide">
                             <div class="service-grid7 th-ani">
                                 <div class="service-grid7_icon">
-                                    <i class="fas fa-users fa-2x text-primary"></i>
+                                    <i class="fas fa-users fa-2x text-success"></i>
                                 </div>
                                 <div class="service-grid7_content">
                                     <h3 class="box-title"><a href="#">Networking</a></h3>
@@ -1201,8 +1205,12 @@ Registation Area
 
                             <!-- Submit Button -->
                             <div class="form-btn text-xl-start text-center col-12">
+                                
                                 <button type="submit" class="th-btn">
-                                    Register Now<i class="fa-regular fa-arrow-right ms-2"></i>
+                                    <span class="btn-text">Register Now</span>
+                                    <span class="spinner" style="display: none;">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    </span>
                                 </button>
                             </div>
                         </div>
@@ -1237,11 +1245,11 @@ Registation Area
                                     education together.
                                 </p>
                                 <div class="th-social">
-                                    <a href="https://web.facebook.com/people/Christ-The-Redeemers-School-Management-CRSM/61551523377798"><i
+                                    <a
+                                        href="https://web.facebook.com/people/Christ-The-Redeemers-School-Management-CRSM/61551523377798"><i
                                             class="fab fa-facebook-f"></i></a>
                                     <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i
-                                            class="fab fa-linkedin-in"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                                     <a href="#"><i class="fab fa-whatsapp"></i></a>
                                 </div>
                             </div>

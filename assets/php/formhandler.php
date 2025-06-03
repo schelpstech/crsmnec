@@ -3,9 +3,9 @@ header('Content-Type: application/json');
 
 // Database credentials
 $host = 'localhost';
-$dbname = 'rebicor4_my_e_church_repo';
-$uname = 'rebicor4_shalom';
-$pd = 'UNYOpat2017@';
+$dbname = 'nec';
+$uname = 'root';
+$pd = 'pass';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $uname, $pd);
@@ -16,62 +16,85 @@ try {
     exit;
 }
 
-// Handle AJAX request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullname = htmlspecialchars(trim($_POST['fullname'] ?? ''));
+    $surname = htmlspecialchars(trim($_POST['surname'] ?? ''));
+    $firstname = htmlspecialchars(trim($_POST['firstname'] ?? ''));
     $gender = htmlspecialchars(trim($_POST['gender'] ?? ''));
-    $title = htmlspecialchars(trim($_POST['title'] ?? ''));
-    $position = htmlspecialchars(trim($_POST['position'] ?? ''));
-    $department = htmlspecialchars(trim($_POST['department'] ?? ''));
-    $participation_mode = htmlspecialchars(trim($_POST['participation_mode'] ?? ''));
-    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
     $phone = htmlspecialchars(trim($_POST['phone'] ?? ''));
-    $church_name = htmlspecialchars(trim($_POST['church_name'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $education_profession = htmlspecialchars(trim($_POST['education_profession'] ?? ''));
+    $education_section = htmlspecialchars(trim($_POST['education_section'] ?? ''));
+    $certificate_name = htmlspecialchars(trim($_POST['certificate_name'] ?? ''));
+    $expectation = htmlspecialchars(trim($_POST['expectation'] ?? ''));
 
-    // Generate unique reference
-    $ref = "WLC24" . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+    $fullname = $surname . ' ' . $firstname;
 
     // Validate required fields
-    if (empty($fullname) || empty($gender) || empty($title) || empty($position) ||
-        empty($department) || empty($participation_mode) || empty($phone) || empty($church_name)) {
+    if (
+        empty($surname) || empty($firstname) || empty($gender) || empty($phone) ||
+        empty($email) || empty($education_profession) || empty($education_section) ||
+        empty($certificate_name) || empty($expectation)
+    ) {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'All fields are required.']);
         exit;
     }
-    // Ensure unique ref
+
     try {
+        // Check if email already exists
+        $checkQuery = "SELECT COUNT(*) FROM educators_registrations WHERE email = :email";
+        $checkStmt = $pdo->prepare($checkQuery);
+        $checkStmt->bindParam(':email', $email);
+        $checkStmt->execute();
+        $emailExists = $checkStmt->fetchColumn();
+
+        if ($emailExists > 0) {
+            http_response_code(409); // Conflict
+            echo json_encode(['success' => false, 'message' => 'This email has already been registered.']);
+            exit;
+        }
+
+        // Generate unique reference
         do {
-            $ref = "WLC24" . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
-            $query = "SELECT COUNT(*) FROM registrations WHERE regid = :ref";
+            $ref = "VEC25" . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            $query = "SELECT COUNT(*) FROM educators_registrations WHERE regid = :ref";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(':ref', $ref);
             $stmt->execute();
             $exists = $stmt->fetchColumn();
         } while ($exists > 0);
 
-        $query = "INSERT INTO registrations 
-                  (regid, fullname, gender, title, position, department, participation_mode, email, phone, church_name)
-                  VALUES (:ref, :fullname, :gender, :title, :position, :department, :participation_mode, :email, :phone, :church_name)";
+        $query = "INSERT INTO educators_registrations 
+            (regid, surname, firstname, fullname, gender, phone, email, education_profession, education_section, certificate_name, expectation)
+            VALUES 
+            (:ref, :surname, :firstname, :fullname, :gender, :phone, :email, :education_profession, :education_section, :certificate_name, :expectation)";
 
         $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':ref', $ref);
+        $stmt->bindParam(':surname', $surname);
+        $stmt->bindParam(':firstname', $firstname);
         $stmt->bindParam(':fullname', $fullname);
         $stmt->bindParam(':gender', $gender);
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':position', $position);
-        $stmt->bindParam(':department', $department);
-        $stmt->bindParam(':participation_mode', $participation_mode);
-        $stmt->bindParam(':email', $email);
         $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':church_name', $church_name);
-        $stmt->bindParam(':ref', $ref);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':education_profession', $education_profession);
+        $stmt->bindParam(':education_section', $education_section);
+        $stmt->bindParam(':certificate_name', $certificate_name);
+        $stmt->bindParam(':expectation', $expectation);
 
         $stmt->execute();
+
         http_response_code(200);
-        $named = $title." ".$fullname;
-        echo json_encode(['success' => true, 'message' => "Registration successful! Thank you, $named."]);
+        echo json_encode([
+            'success' => true,
+            'message' => "Registration successful! Thank you, $certificate_name."
+        ]);
     } catch (PDOException $e) {
         http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Error saving data: ' . $e->getMessage()]);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Error saving data: ' . $e->getMessage()
+        ]);
     }
 }
 exit;

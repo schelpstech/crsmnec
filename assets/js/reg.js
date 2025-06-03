@@ -7,17 +7,31 @@ document.querySelector('.registration-form').addEventListener('submit', function
     const submitButton = form.querySelector('button[type="submit"]');
     let isValid = true;
 
-    // Reset previous messages
-    messageContainer.textContent = '';
-    messageContainer.style.color = '';
+    // Reset inline error messages
+    form.querySelectorAll('.error-message').forEach(el => el.remove());
 
-    // Helper function to show alerts
-    function showAlert(message) {
-        alert(message);
+    function showInlineError(input, message) {
+        const error = document.createElement('div');
+        error.className = 'error-message';
+        error.style.color = 'red';
+        error.style.fontSize = '0.9em';
+        error.textContent = message;
+        input.parentNode.appendChild(error);
         isValid = false;
     }
 
-    // Field validations (based on updated form fields)
+    function showToast(message, success = false) {
+        Toastify({
+            text: message,
+            duration: 4000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: success ? "#28a745" : "#dc3545",
+            stopOnFocus: true
+        }).showToast();
+    }
+
+    // Required field validations
     const requiredFields = [
         { name: 'surname', errorMessage: 'Surname is required.' },
         { name: 'firstname', errorMessage: 'First name is required.' },
@@ -25,44 +39,40 @@ document.querySelector('.registration-form').addEventListener('submit', function
         { name: 'phone', errorMessage: 'Phone number is required.' },
         { name: 'email', errorMessage: 'Email address is required.' },
         { name: 'education_profession', errorMessage: 'Please specify if you are in the Education Profession.' },
-        { name: 'education_section', errorMessage: 'Please state the section of the Education Sector you work in.' },
-        { name: 'certificate_name', errorMessage: 'Please enter your name as it should appear on the certificate.' },
-        { name: 'gain_expectation', errorMessage: 'Please specify what you plan to gain from the training.' },
+        { name: 'education_section', errorMessage: 'Please select your Education Sector.' },
+        { name: 'certificate_name', errorMessage: 'Please enter your name for the certificate.' },
+        { name: 'expectation', errorMessage: 'Please specify your expectations.' }
     ];
 
     requiredFields.forEach(field => {
         const input = form.querySelector(`[name="${field.name}"]`);
         if (!input || !input.value.trim()) {
-            showAlert(field.errorMessage);
+            showInlineError(input, field.errorMessage);
         }
     });
 
     // Validate phone number
     const phoneInput = form.querySelector('[name="phone"]');
-    if (phoneInput) {
-        const phone = phoneInput.value.trim();
-        if (!/^\d{11}$/.test(phone)) {
-            showAlert('Phone number must be exactly 11 digits.');
-        }
+    const phone = phoneInput?.value.trim();
+    if (phone && !/^\d{11}$/.test(phone)) {
+        showInlineError(phoneInput, 'Phone number must be exactly 11 digits.');
     }
 
     // Validate email format
     const emailInput = form.querySelector('[name="email"]');
-    if (emailInput) {
-        const email = emailInput.value.trim();
-        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showAlert('Please enter a valid email address.');
-        }
+    const email = emailInput?.value.trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showInlineError(emailInput, 'Please enter a valid email address.');
     }
 
-    // Stop submission if validation fails
+    // Stop submission if invalid
     if (!isValid) {
-        messageContainer.textContent = 'Please fill in all required fields and correct errors.';
+        messageContainer.textContent = 'Please fix the errors below.';
         messageContainer.style.color = 'red';
         return;
     }
 
-    // Proceed with submission
+    // Submit via fetch
     submitButton.disabled = true;
     submitButton.textContent = 'Submitting...';
 
@@ -71,28 +81,21 @@ document.querySelector('.registration-form').addEventListener('submit', function
         body: formData,
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         return response.json();
     })
     .then(data => {
         if (data.success) {
-            messageContainer.textContent = data.message || 'Registration successful!';
-            messageContainer.style.color = 'green';
-            alert(`Success: ${data.message || 'Registration successful!'}`);
+            messageContainer.textContent = '';
+            showToast(data.message || 'Registration successful!', true);
             form.reset();
         } else {
-            messageContainer.textContent = data.message || 'An error occurred. Please try again.';
-            messageContainer.style.color = 'red';
-            alert(`Error: ${data.message || 'An error occurred. Please try again.'}`);
+            showToast(data.message || 'Submission failed. Please try again.');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        messageContainer.textContent = 'An error occurred while processing your request. Please try again later.';
-        messageContainer.style.color = 'red';
-        alert('An error occurred. Please try again later.');
+        showToast('Network error. Please try again.');
     })
     .finally(() => {
         submitButton.disabled = false;
