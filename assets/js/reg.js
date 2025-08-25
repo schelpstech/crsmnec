@@ -33,15 +33,11 @@ document.querySelector('.registration-form').addEventListener('submit', function
 
     // Required field validations
     const requiredFields = [
-        { name: 'surname', errorMessage: 'Surname is required.' },
-        { name: 'firstname', errorMessage: 'First name is required.' },
+        { name: 'fullname', errorMessage: 'Fullname is required.' },
         { name: 'gender', errorMessage: 'Gender is required.' },
         { name: 'phone', errorMessage: 'Phone number is required.' },
         { name: 'email', errorMessage: 'Email address is required.' },
-        { name: 'education_profession', errorMessage: 'Please specify if you are in the Education Profession.' },
-        { name: 'education_section', errorMessage: 'Please select your Education Sector.' },
-        { name: 'certificate_name', errorMessage: 'Please enter your name for the certificate.' },
-        { name: 'expectation', errorMessage: 'Please specify your expectations.' }
+        { name: 'education_section', errorMessage: 'Please select your Education Sector.' }
     ];
 
     requiredFields.forEach(field => {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 header('Content-Type: application/json');
 
 // Database credentials
@@ -17,23 +17,16 @@ try {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $surname = htmlspecialchars(trim($_POST['surname'] ?? ''));
-    $firstname = htmlspecialchars(trim($_POST['firstname'] ?? ''));
+    $fullname = htmlspecialchars(trim($_POST['fullname'] ?? ''));
     $gender = htmlspecialchars(trim($_POST['gender'] ?? ''));
     $phone = htmlspecialchars(trim($_POST['phone'] ?? ''));
     $email = htmlspecialchars(trim($_POST['email'] ?? ''));
-    $education_profession = htmlspecialchars(trim($_POST['education_profession'] ?? ''));
     $education_section = htmlspecialchars(trim($_POST['education_section'] ?? ''));
-    $certificate_name = htmlspecialchars(trim($_POST['certificate_name'] ?? ''));
-    $expectation = htmlspecialchars(trim($_POST['expectation'] ?? ''));
-
-    $fullname = $surname . ' ' . $firstname;
 
     // Validate required fields
     if (
-        empty($surname) || empty($firstname) || empty($gender) || empty($phone) ||
-        empty($email) || empty($education_profession) || empty($education_section) ||
-        empty($certificate_name) || empty($expectation)
+        empty($fullname) ||  empty($gender) || empty($phone) ||
+        empty($email) || empty($education_section)
     ) {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'All fields are required.']);
@@ -65,29 +58,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } while ($exists > 0);
 
         $query = "INSERT INTO educators_registrations 
-            (regid, surname, firstname, fullname, gender, phone, email, education_profession, education_section, certificate_name, expectation)
+            (regid,  fullname, gender, phone, email, education_section)
             VALUES 
-            (:ref, :surname, :firstname, :fullname, :gender, :phone, :email, :education_profession, :education_section, :certificate_name, :expectation)";
+            (:ref, :fullname, :gender, :phone, :email, :education_section)";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':ref', $ref);
-        $stmt->bindParam(':surname', $surname);
-        $stmt->bindParam(':firstname', $firstname);
         $stmt->bindParam(':fullname', $fullname);
         $stmt->bindParam(':gender', $gender);
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':education_profession', $education_profession);
         $stmt->bindParam(':education_section', $education_section);
-        $stmt->bindParam(':certificate_name', $certificate_name);
-        $stmt->bindParam(':expectation', $expectation);
 
         $stmt->execute();
 
         http_response_code(200);
         echo json_encode([
             'success' => true,
-            'message' => "Registration successful! Thank you, $certificate_name."
+            'message' => "Registration successful! Thank you, $fullname."
         ]);
     } catch (PDOException $e) {
         http_response_code(500);

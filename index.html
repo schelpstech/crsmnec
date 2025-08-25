@@ -218,8 +218,8 @@ Home Area
                 <!-- Slide 2 -->
                 <div class="swiper-slide">
                     <div class="hero-inner">
-                        <div class="th-hero-bg" data-bg-src="assets/img/backdrop/slider-2.jpg">
-                            <img src="assets/img/backdrop/slider-2.jpg" alt="Inspiring Innovation"
+                        <div class="th-hero-bg" data-bg-src="assets/img/backdrop/slider1.jpg">
+                            <img src="assets/img/backdrop/slider1.jpg" alt="Inspiring Innovation"
                                 style="opacity: 0.2;" />
                         </div>
                         <div class="container">
@@ -245,8 +245,8 @@ Home Area
                 <!-- Slide 3 -->
                 <div class="swiper-slide">
                     <div class="hero-inner">
-                        <div class="th-hero-bg" data-bg-src="assets/img/backdrop/slider-3.jpg">
-                            <img src="assets/img/backdrop/slider-3.jpg" alt="Training Future Educators"
+                        <div class="th-hero-bg" data-bg-src="assets/img/backdrop/slider1.jpg">
+                            <img src="assets/img/backdrop/slider1.jpg" alt="Training Future Educators"
                                 style="opacity: 0.2;" />
                         </div>
                         <div class="container">
@@ -407,7 +407,7 @@ About Area
                         </h4><br>
                         <h5 class="sec-title text-white">
                             The CRSM National Educators Conference 2025
-                            <br><small><i>Wednesday 8th October, 2025 – 2:30 PM (WAT -GMT+1)</i></small>
+                            <br><small><i>To Be Announced</i></small>
                         </h5>
                     </div>
                     <div class="cta-group">
@@ -421,7 +421,7 @@ About Area
         <script>
             // Countdown Timer Script
             document.addEventListener("DOMContentLoaded", function () {
-                const conferenceDate = new Date("2025-10-08T15:00:00").getTime(); // Set the conference date
+                const conferenceDate = new Date("2025-12-12T15:00:00").getTime(); // Set the conference date
                 const countdownElement = document.getElementById("countdown-days");
 
                 function updateCountdown() {
@@ -1092,43 +1092,24 @@ Registation Area
                             <p class="sec-text">Click <strong>"Register Now"</strong> after filling all required fields.
                             </p>
                         </li>
-
-                        <li>
-                            <strong>Totally Free & Fully Virtual</strong>
-                            <p class="sec-text">Participation is 100% free and will take place online — no physical
-                                presence required.</p>
-                        </li>
-
-                        <li>
-                            <strong>Certified Training</strong>
-                            <p class="sec-text">Participants will receive an E-Certificate of Attendance upon successful
-                                completion of the training.</p>
-                        </li>
                     </ol>
                 </div>
 
                 <div class="col-xl-8">
                     <!-- Registration Form -->
                     <p class="sec-text"><strong>
-                            Join us for an impactful conference. Kindly complete the form to
-                            indicate your participation preferences and church details.</strong>
+                            Kindly complete the form and join us for an impactful conference. </strong>
                     </p>
                     <form class="registration-form" novalidate enctype="multipart/form-data" autocomplete="on">
                         <div class="row">
 
-                            <!-- Surname -->
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="surname" id="surname"
-                                    placeholder="Surname" required />
+                            <!-- Full Name -->
+                            <div class="form-group col-md-12">
+                                <input type="text" class="form-control" name="fullname" id="fullname"
+                                    placeholder="Full name" required />
                                 <i class="fal fa-user"></i>
                             </div>
 
-                            <!-- First Name -->
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="firstname" id="firstname"
-                                    placeholder="First Name" required />
-                                <i class="fal fa-user"></i>
-                            </div>
 
                             <!-- Gender -->
                             <div class="form-group col-md-6">
@@ -1136,7 +1117,7 @@ Registation Area
                                     <option value="" disabled selected hidden>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
+                                    <option value="School">School</option>
                                 </select>
                                 <i class="fal fa-chevron-down"></i>
                             </div>
@@ -1155,17 +1136,6 @@ Registation Area
                                 <i class="fal fa-envelope"></i>
                             </div>
 
-                            <!-- Are you in the Education Profession? -->
-                            <div class="form-group col-md-6">
-                                <select name="education_profession" id="education_profession" class="form-select"
-                                    required>
-                                    <option value="" disabled selected hidden>Are you in the Education Profession?
-                                    </option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                                <i class="fal fa-chevron-down"></i>
-                            </div>
                             <!-- Section in Education Sector -->
                             <div class="form-group col-md-12">
                                 <select id="education_section" name="education_section" class="form-select" required>
@@ -1177,6 +1147,9 @@ Registation Area
                                     <option value="tertiary_education">Tertiary Education (College / University /
                                         Polytechnic)</option>
                                     <option value="tvet">Technical and Vocational Education and Training (TVET)</option>
+                                    <option value="primary_school">Primary School</option>
+                                    <option value="secondary_school">Secondary School</option>
+                                    <option value="pry_sec_school">Primary and Secondary School</option>
                                     <option value="head_of_school">Head of School / School Administrator</option>
                                     <option value="curriculum_development">Curriculum Development</option>
                                     <option value="policy_maker">Policy Maker</option>
@@ -1187,24 +1160,11 @@ Registation Area
                                     </option>
                                     <option value="research">Educational Research / Academia</option>
                                     <option value="ngo_education">NGO / Non-profit in Education</option>
+                                    <option value="parent">Parent</option>
                                     <option value="other">Other</option>
+                                    <option value="student">Student</option>
                                 </select>
                                 <i class="fal fa-briefcase"></i>
-                            </div>
-
-
-                            <!-- Name for E-Certificate -->
-                            <div class="form-group col-md-12">
-                                <input type="text" class="form-control" name="certificate_name" id="certificate_name"
-                                    placeholder="Name as you want it to appear in your E-Certificate" required />
-                                <i class="fal fa-certificate"></i>
-                            </div>
-
-                            <!-- What do you plan to gain -->
-                            <div class="form-group col-md-12">
-                                <textarea class="form-control" name="expectation" id="expectation" rows="4"
-                                    placeholder="What do you plan to gain from attendance?" required></textarea>
-                                <i class="fal fa-lightbulb"></i>
                             </div>
 
                             <!-- Submit Button -->
